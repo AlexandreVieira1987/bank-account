@@ -1,0 +1,2 @@
+export const TYPE_OPERATION_CREDIT = "CREDIT";
+export const TYPE_OPERATION_DEBIT = "DEBIT";

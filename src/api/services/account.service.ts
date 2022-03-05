@@ -12,7 +12,22 @@ export class AccountService
         return getRepository(AccountEntity)
     }
 
-    async save(attributes: CustomerEntity): Promise<AccountEntity|string|Error> {
+    async toCredit(attributes: {id: number, value: number}): Promise<AccountEntity|string|Error>
+    {
+        const model = await this.model()
+        const account = await model.findOne({id: attributes.id})
+
+        if (account instanceof Error) {
+            return new Error('Account no found')
+        }
+
+        account.balance = (account.balance + attributes.value)
+
+        return await model.save(account)
+    }
+
+    async create(attributes: CustomerEntity): Promise<AccountEntity|Error>
+    {
         const model = await this.model()
         const modelCustomer = new CustomerService()
 
