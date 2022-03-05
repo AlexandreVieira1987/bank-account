@@ -27,11 +27,7 @@ export class AccountService
 
         const save = await model.save(account)
         if (save) {
-            const movement = new MovementService();
-            await movement.credit({
-                account_id: save.id,
-                value: attributes.value,
-            } as MovementEntity)
+            await AccountService.registerMovement({account: save.id, value: save.balance})
         }
 
         return save
@@ -53,14 +49,19 @@ export class AccountService
 
         const save = await model.save(account)
         if (save) {
-            const movement = new MovementService();
-            await movement.debit({
-                account_id: save.id,
-                value: attributes.value,
-            } as MovementEntity)
+            await AccountService.registerMovement({account: save.id, value: save.balance})
         }
 
         return save
+    }
+
+    private static async registerMovement(attr: {account: number, value: number})
+    {
+        const movement = new MovementService();
+        await movement.debit({
+            account_id: attr.account,
+            value: attr.value,
+        } as MovementEntity)
     }
 
     async create(attributes: CustomerEntity): Promise<AccountEntity|Error>
