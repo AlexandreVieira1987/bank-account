@@ -14,10 +14,21 @@ export class AccountService
         return getRepository(AccountEntity)
     }
 
-    async toCredit(attributes: {id: number, value: number}): Promise<AccountEntity|string|Error>
+    async findOne(id: number): Promise<AccountEntity|Error>
     {
         const model = await this.model()
-        const account = await model.findOne({id: attributes.id})
+        const account = await model.findOne({ id })
+
+        if (account === undefined) {
+            return new Error('Account no found')
+        }
+
+        return account
+    }
+
+    async toCredit(attributes: {id: number, value: number}): Promise<AccountEntity|string|Error>
+    {
+        const account = await this.findOne(attributes.id)
 
         if (account instanceof Error) {
             return new Error('Account no found')
@@ -25,6 +36,7 @@ export class AccountService
 
         account.balance = (account.balance + attributes.value)
 
+        const model = await this.model()
         const save = await model.save(account)
         if (save) {
             await AccountService.registerMovement({account: save.id, value: save.balance})
@@ -35,8 +47,7 @@ export class AccountService
 
     async toDebit(attributes: {id: number, value: number}): Promise<AccountEntity|string|Error>
     {
-        const model = await this.model()
-        const account = await model.findOne({id: attributes.id})
+        const account = await this.findOne(attributes.id)
 
         if (account instanceof Error) {
             return new Error('Account no found')
@@ -47,6 +58,7 @@ export class AccountService
             return new Error('Insufficient balance')
         }
 
+        const model = await this.model()
         const save = await model.save(account)
         if (save) {
             await AccountService.registerMovement({account: save.id, value: save.balance})

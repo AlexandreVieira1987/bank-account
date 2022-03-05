@@ -7,25 +7,28 @@ import { AccountService } from './services/account.service';
 import {AccountEntity} from "./entities/account.entity";
 import { MovementService } from './services/movement.service';
 import {MovementEntity} from "./entities/movement.entity";
+import {TransferEntity} from "./entities/transfer.entity";
+import { TransferService } from './services/transfer.service';
+import { TransferController } from './controllers/transfer.controller';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([
             CustomerEntity,
             AccountEntity,
-            MovementEntity
+            MovementEntity,
+            TransferEntity
         ])
     ],
-    controllers: [AccountController],
+    controllers: [
+        AccountController,
+        TransferController
+    ],
     providers: [
         CustomerService,
         AccountService,
         MovementService,
-
-
-        AccountEntity,
-        CustomerEntity,
-        MovementEntity
+        TransferService,
     ]
 })
 export class ApiModule {}
