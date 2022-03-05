@@ -1,7 +1,7 @@
 export default {
     type: 'mysql',
-    host: 'localhost',//process.env.MYSQL_HOST,
-    port: 3309,//parseInt(process.env.MYSQL_PORT),
+    host: process.env.MYSQL_HOST,
+    port: parseInt(process.env.MYSQL_PORT),
     username: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
