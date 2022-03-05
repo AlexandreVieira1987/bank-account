@@ -26,6 +26,17 @@ export class AccountService
         return account
     }
 
+    async balance(id: number): Promise<number|Error>
+    {
+        const account = await this.findOne(id)
+
+        if (account instanceof Error) {
+            return new Error('Account no found')
+        }
+
+        return account.balance
+    }
+
     async toCredit(attributes: {id: number, value: number}): Promise<AccountEntity|string|Error>
     {
         const account = await this.findOne(attributes.id)

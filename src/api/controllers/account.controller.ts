@@ -1,4 +1,4 @@
-import {Body, Controller, Param, Post, Res} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Res} from '@nestjs/common';
 import {BaseController} from "../utils/BaseController";
 import {AccountService} from "../services/account.service";
 import {CustomerEntity} from "../entities/customer.entity";
@@ -37,6 +37,14 @@ export class AccountController extends BaseController
             value: attributes.value,
             id: account_id
         })
+
+        return this.response(res, model)
+    }
+
+    @Get(':account_id/balance')
+    async balance(@Param('account_id') account_id: number, @Res() res)
+    {
+        const model = await this.model.balance(account_id)
 
         return this.response(res, model)
     }
