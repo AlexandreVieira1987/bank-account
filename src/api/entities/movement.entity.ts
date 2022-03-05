@@ -3,7 +3,8 @@ import {AccountEntity} from "./account.entity";
 import {ColumnNumericTransformer} from "../../database/utils/ColumnNumericTransformer";
 
 @Entity('movement')
-export class MovementEntity {
+export class MovementEntity
+{
     @PrimaryGeneratedColumn()
     public id: number
 
