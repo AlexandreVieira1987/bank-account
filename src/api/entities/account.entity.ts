@@ -3,7 +3,8 @@ import {CustomerEntity} from "./customer.entity";
 import {ColumnNumericTransformer} from "../../database/utils/ColumnNumericTransformer";
 
 @Entity('account')
-export class AccountEntity {
+export class AccountEntity
+{
     @PrimaryGeneratedColumn()
     public id: number
 
@@ -19,8 +20,4 @@ export class AccountEntity {
 
     @CreateDateColumn()
     created_at: Date
-
-    public simulateNewBalance(value: number) {
-        return (this.balance - value);
-    }
 }

@@ -10,6 +10,8 @@ import {MovementEntity} from "./entities/movement.entity";
 import {TransferEntity} from "./entities/transfer.entity";
 import { TransferService } from './services/transfer.service';
 import { TransferController } from './controllers/transfer.controller';
+import {TerminusModule} from "@nestjs/terminus";
+import { HealthCheckController } from './controllers/health-check.controller';
 
 @Module({
     imports: [
@@ -18,11 +20,13 @@ import { TransferController } from './controllers/transfer.controller';
             AccountEntity,
             MovementEntity,
             TransferEntity
-        ])
+        ]),
+        TerminusModule
     ],
     controllers: [
         AccountController,
-        TransferController
+        TransferController,
+        HealthCheckController
     ],
     providers: [
         CustomerService,

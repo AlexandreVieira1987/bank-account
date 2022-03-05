@@ -34,7 +34,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"cpf\": \"94569878251\",\n    \"name\": \"Steve Jobs\"\n}",
+							"raw": "{\n    \"cpf\": \"94569878551\",\n    \"name\": \"Mark Zuckerberg\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -135,6 +135,40 @@
 							],
 							"path": [
 								"transfer"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "Check",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"value\": 500,\n    \"account_from\": 1,\n    \"account_to\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/health",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"health"
 							]
 						}
 					},
