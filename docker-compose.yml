@@ -29,7 +29,7 @@ services:
       --default-authentication-plugin=mysql_native_password
 
     volumes:
-      - ./database.sql:/data/application/init.sql
+      - ./src/database/database.sql:/data/application/init.sql
       - ./mysqldata:/var/lib/mysql/
 
     extra_hosts:
