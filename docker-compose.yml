@@ -1,0 +1,42 @@
+version: '3.6'
+
+services:
+  challenge-api:
+    image: node:14.15.4-alpine3.12
+    container_name: challenge_api
+    entrypoint: sh -c "npm install -g @nestjs/cli@8.0.0 && npm install && npm run migrate:up &&  npm run start:dev"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/home/node/api
+    depends_on:
+      - challenge-database
+    working_dir: /home/node/api
+
+  challenge-database:
+    image: mysql
+    restart: always
+    build: .
+    container_name: challenge_mysql
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: KaBBkTWFSEcKPxSFL6zG9ZHg
+      MYSQL_DATABSE: challenge
+
+    command:
+      --init-file /data/application/init.sql
+      --default-authentication-plugin=mysql_native_password
+
+    volumes:
+      - ./database.sql:/data/application/init.sql
+      - ./mysqldata:/var/lib/mysql/
+
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+
+
+networks:
+  default:
+    external:
+      name: dev-network
