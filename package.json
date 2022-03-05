@@ -24,11 +24,13 @@
     "migrate:down": "ts-node ./node_modules/typeorm/cli.js migration:revert"
   },
   "dependencies": {
+    "@nestjs/axios": "^0.0.6",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^1.2.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/mapped-types": "^1.0.1",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/terminus": "^8.0.4",
     "@nestjs/typeorm": "^8.0.3",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",

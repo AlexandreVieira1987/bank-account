@@ -2,6 +2,7 @@ import {Module} from '@nestjs/common';
 import {ConfigModule} from "@nestjs/config";
 import {ApiModule} from "./api/api.module";
 import {TypeOrmModule} from "@nestjs/typeorm";
+import {HttpModule} from "@nestjs/axios";
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import {TypeOrmModule} from "@nestjs/typeorm";
                 __dirname + '/**/*.entity{.ts,.js}'
             ],
         }),
+        HttpModule
     ],
     controllers: [],
     providers: [],
