@@ -29,4 +29,15 @@ export class AccountController extends BaseController
 
         return this.response(res, model)
     }
+
+    @Post(':account_id/debit')
+    async debit(@Param('account_id') account_id: number, @Body() attributes: {value: number}, @Res() res)
+    {
+        const model = await this.model.toDebit({
+            value: attributes.value,
+            id: account_id
+        })
+
+        return this.response(res, model)
+    }
 }

@@ -3,6 +3,8 @@ import {getRepository, Repository} from "typeorm";
 import {AccountEntity} from "../entities/account.entity";
 import {CustomerService} from "./customer.service";
 import {CustomerEntity} from "../entities/customer.entity";
+import {MovementService} from "./movement.service";
+import {MovementEntity} from "../entities/movement.entity";
 
 @Injectable()
 export class AccountService
@@ -23,7 +25,42 @@ export class AccountService
 
         account.balance = (account.balance + attributes.value)
 
-        return await model.save(account)
+        const save = await model.save(account)
+        if (save) {
+            const movement = new MovementService();
+            await movement.credit({
+                account_id: save.id,
+                value: attributes.value,
+            } as MovementEntity)
+        }
+
+        return save
+    }
+
+    async toDebit(attributes: {id: number, value: number}): Promise<AccountEntity|string|Error>
+    {
+        const model = await this.model()
+        const account = await model.findOne({id: attributes.id})
+
+        if (account instanceof Error) {
+            return new Error('Account no found')
+        }
+
+        account.balance = (account.balance - attributes.value)
+        if (account.balance < 0) {
+            return new Error('Insufficient balance')
+        }
+
+        const save = await model.save(account)
+        if (save) {
+            const movement = new MovementService();
+            await movement.debit({
+                account_id: save.id,
+                value: attributes.value,
+            } as MovementEntity)
+        }
+
+        return save
     }
 
     async create(attributes: CustomerEntity): Promise<AccountEntity|Error>

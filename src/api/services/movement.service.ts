@@ -7,9 +7,9 @@ import {TYPE_OPERATION_CREDIT, TYPE_OPERATION_DEBIT} from "../utils/constants";
 @Injectable()
 export class MovementService
 {
-    async model(): Promise<Repository<CustomerEntity>>
+    async model(): Promise<Repository<MovementEntity>>
     {
-        return getRepository(CustomerEntity)
+        return getRepository(MovementEntity)
     }
 
     async credit(attributes: MovementEntity): Promise<MovementEntity|Error>
