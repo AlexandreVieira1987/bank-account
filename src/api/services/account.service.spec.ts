@@ -112,4 +112,18 @@ describe('AccountService', () => {
             expect(accountService.toCredit({id: 1, value: 1000})).rejects.toThrowError()
         });
     })
+
+    describe('toDebit', () => {
+        it ('should to debit an account', async () => {
+            const result = await accountService.toDebit({id: 1, value: 1000})
+
+            expect(result).toBe(accountMock[0])
+            expect(accountEntity.save).toHaveBeenCalledTimes(1)
+        });
+
+        it ('should throw an exception', () => {
+            jest.spyOn(accountEntity, 'save').mockRejectedValueOnce(new Error())
+            expect(accountService.toDebit({id: 1, value: 1000})).rejects.toThrowError()
+        });
+    })
 });
