@@ -50,14 +50,6 @@ describe('TransferService', () => {
                         save: jest.fn().mockResolvedValue(customerMock),
                     }
                 },
-                // {
-                //     provide: getRepositoryToken(CustomerEntity),
-                //     useValue: {
-                //         find: jest.fn().mockResolvedValue(customerMock),
-                //         findOne: jest.fn().mockResolvedValue(customerMock),
-                //         save: jest.fn().mockResolvedValue(customerMock),
-                //     }
-                // },
                 {
                     provide: getRepositoryToken(TransferEntity),
                     useValue: {
@@ -86,7 +78,7 @@ describe('TransferService', () => {
         expect(transferEntity).toBeDefined();
     });
 
-    describe('findAll', () => {
+    describe('toTransfer', () => {
         it ('should return a transfer account ', async () => {
             const result = await transferService.toTransfer(transferMock)
 

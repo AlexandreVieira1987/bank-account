@@ -1,21 +1,16 @@
-import {Body, Controller, Param, Post, Res} from '@nestjs/common';
-import {BaseController} from "../utils/BaseController";
-import {AccountService} from "../services/account.service";
+import {Body, Controller, Post} from '@nestjs/common';
 import {TransferService} from "../services/transfer.service";
 
 @Controller('transfer')
-export class TransferController extends BaseController
+export class TransferController
 {
     constructor(
         private readonly model: TransferService
-    ) {
-        super()
-    }
+    ) {}
 
     @Post()
-    async new(@Body() attributes: {account_from: number, account_to: number, value: number}, @Res() res)
+    async new(@Body() attributes: {account_from: number, account_to: number, value: number})
     {
-        const model = await this.model.toTransfer(attributes)
-        return this.response(res, model)
+        return await this.model.toTransfer(attributes)
     }
 }
