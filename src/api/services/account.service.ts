@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@nestjs/common';
+import {BadRequestException, Inject, Injectable, NotFoundException} from '@nestjs/common';
 import {getRepository, Repository} from "typeorm";
 import {AccountEntity} from "../entities/account.entity";
 import {CustomerService} from "./customer.service";
@@ -6,6 +6,7 @@ import {CustomerEntity} from "../entities/customer.entity";
 import {MovementService} from "./movement.service";
 import {MovementEntity} from "../entities/movement.entity";
 import {InjectRepository} from "@nestjs/typeorm";
+import {response} from "express";
 
 @Injectable()
 export class AccountService
@@ -21,6 +22,12 @@ export class AccountService
         private customer: CustomerService,
     )
     {}
+
+    async findAll(): Promise<AccountEntity[]|Error>
+    {
+        const model = await this.model
+        return await model.find()
+    }
 
     async findOne(id: number): Promise<AccountEntity|Error>
     {
@@ -97,19 +104,23 @@ export class AccountService
     async create(attributes: CustomerEntity): Promise<AccountEntity|Error>
     {
         const model = await this.model
-        const customer = await this.customer.create(attributes)
 
-        if (customer instanceof Error) {
-            return customer
+        try {
+            const customer = await this.customer.create(attributes)
+            if (customer instanceof Error) {
+                return new Error(customer.message)
+            }
+
+            attributes.id = customer.id
+
+        } catch (e) {
+            return new Error(e.message)
         }
 
-        const accountAttr = {
+        const save = await model.save({
             balance: 0,
             customer_id: attributes.id,
-        } as AccountEntity
-
-
-        const save = await model.save(accountAttr)
+        })
 
         if (!save) {
             return new Error('Error on save account')

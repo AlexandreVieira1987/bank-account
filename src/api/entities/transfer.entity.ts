@@ -27,4 +27,12 @@ export class TransferEntity
 
     @CreateDateColumn()
     created_at: Date
+
+    constructor(transfer: Partial<TransferEntity>)
+    {
+        this.id = transfer?.id
+        this.account_id_to = transfer?.account_id_to,
+        this.account_id_from = transfer?.account_id_from,
+        this.value = transfer?.value
+    }
 }

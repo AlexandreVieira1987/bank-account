@@ -23,4 +23,12 @@ export class MovementEntity
 
     @CreateDateColumn()
     created_at: Date
+
+    constructor(movement: Partial<MovementEntity>)
+    {
+        this.id = movement?.id
+        this.account_id = movement?.account_id,
+        this.value = movement?.value,
+        this.type = movement?.type
+    }
 }

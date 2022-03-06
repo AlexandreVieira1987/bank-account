@@ -18,16 +18,10 @@ export class CustomerService
 
     async create(attributes: CustomerEntity): Promise<CustomerEntity | Error>
     {
-        if (await this.model.findOne({cpf: attributes.cpf})) {
-            return new Error('Customer already exists')
+        try {
+            return await this.model.save(attributes)
+        } catch (e) {
+            return new Error(e.message)
         }
-
-        const save = await this.model.save(attributes)
-
-        if (!save) {
-            return new Error('Error on save customer')
-        }
-
-        return save
     }
 }
