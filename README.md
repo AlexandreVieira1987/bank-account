@@ -41,4 +41,4 @@ $ docker-compose exec challenge-api npm run test
 
 ## Links
 
-<a target="blank" href="http://localhost:300/api">Documentação</a>
+<a target="blank" href="http://localhost:3000/api">Documentação</a>
