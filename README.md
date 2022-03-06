@@ -19,6 +19,10 @@ $ docker-compose up
 ```
 criar ao menos duas contas bancárias para poder testar a transferência
 optei por iniciar o banco limpo para faciliar os tests  
+
+Acessando http://localhost:8090 você tem acesso ao PHP admin
+user: root
+pass: KaBBkTWFSEcKPxSFL6zG9ZHgs
 ```
 
 ## Arquivo postman
@@ -61,3 +65,5 @@ $ docker-compose exec challenge-api npm run test
 <a target="_blank" href="http://localhost:3000/api">Documentação</a>
 
 <a target="_blank" href="https://trello.com/b/irQTHE6W/desafio-mutual">Trelo</a>
+
+<a target="_blank" href="http://localhost:8090">PHP Admin</a>

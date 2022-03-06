@@ -35,6 +35,18 @@ services:
     extra_hosts:
       - "host.docker.internal:172.17.0.1"
 
+  challenge-app-database:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    links:
+      - challenge-database
+    ports:
+      - "8090:80"
+    environment:
+      - PMA_ARBITRARY:1
+      - PMA_HOST:challenge_mysql
+      - PMA_USER:root
+      - MYSQL_ROOT_PASSWORD:KaBBkTWFSEcKPxSFL6zG9ZHgs
 
 networks:
   default:
