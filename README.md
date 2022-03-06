@@ -14,6 +14,13 @@ Desafio Mutual - Node TS Developer
 $ docker-compose up
 ```
 
+## Primeiras ações
+
+```
+criar ao menos duas contas bancárias para poder testar a transferência
+optei por iniciar o banco limpo para faciliar os tests  
+```
+
 ## Arquivo postman
 
 ```
