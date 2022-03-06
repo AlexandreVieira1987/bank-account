@@ -15,6 +15,10 @@ export class TransferController
     })
     async new(@Body() attributes: {account_from: number, account_to: number, value: number})
     {
-        return await this.model.toTransfer(attributes)
+        const model = await this.model.toTransfer(attributes)
+        if (model instanceof Error) {
+            return model.message
+        }
+        return model
     }
 }

@@ -16,7 +16,11 @@ export class AccountController
     })
     async create(@Body() attributes: CustomerEntity)
     {
-        return await this.model.create(attributes);
+        const model = await this.model.create(attributes);
+        if (model instanceof Error) {
+            return model.message
+        }
+        return model
     }
 
     @Post(':account_id/credit')
@@ -25,10 +29,14 @@ export class AccountController
     })
     async credit(@Param('account_id') account_id: number, @Body() attributes: {value: number})
     {
-        return  await this.model.toCredit({
+        const model = await this.model.toCredit({
             value: attributes.value,
             id: account_id
         })
+        if (model instanceof Error) {
+            return model.message
+        }
+        return model
     }
 
     @Post(':account_id/debit')
@@ -37,11 +45,15 @@ export class AccountController
     })
     async debit(@Param('account_id') account_id: number, @Body() attributes: {value: number})
     {
-        return await this.model.toDebit({
+        const model = await this.model.toDebit({
             value: attributes.value,
             id: account_id
         })
 
+        if (model instanceof Error) {
+            return model.message
+        }
+        return model
     }
 
     @Get(':account_id/balance')
@@ -50,6 +62,10 @@ export class AccountController
     })
     async balance(@Param('account_id') account_id: number)
     {
-        return await this.model.balance(account_id)
+        const model = await this.model.balance(account_id)
+        if (model instanceof Error) {
+            return model.message
+        }
+        return model
     }
 }
