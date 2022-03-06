@@ -51,6 +51,6 @@ $ docker-compose exec challenge-api npm run test
 
 ## Links
 
-<a target="blank" href="http://localhost:3000/api">Documentação</a>
+<a target="_blank" href="http://localhost:3000/api">Documentação</a>
 
-<a target="blank" href="http://localhost:3000/api">Trelo</a>
+<a target="_blank" href="https://trello.com/b/irQTHE6W/desafio-mutual">Trelo</a>
