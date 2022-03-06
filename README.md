@@ -14,6 +14,12 @@ Desafio Mutual - Node TS Developer
 $ docker-compose up
 ```
 
+## Arquivo postman
+
+```
+Na raiz do projeto
+```
+
 ## Testes
 
 ```bash
@@ -33,3 +39,6 @@ $ docker-compose exec challenge-api npm run test -t src/api/controllers/transfer
 $ docker-compose exec challenge-api npm run test
 ```
 
+## Links
+
+<a target="blank" href="http://localhost:300/api">Documentação</a>
