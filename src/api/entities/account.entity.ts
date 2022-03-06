@@ -20,4 +20,11 @@ export class AccountEntity
 
     @CreateDateColumn()
     created_at: Date
+
+    constructor(account: Partial<AccountEntity>)
+    {
+        this.id = account?.id,
+        this.customer_id = account?.customer_id,
+        this.balance = account?.balance
+    }
 }

@@ -14,6 +14,12 @@ export class AccountService
         return getRepository(AccountEntity)
     }
 
+    async findAll(): Promise<AccountEntity[]|Error>
+    {
+        const model = await this.model()
+        return await model.find()
+    }
+
     async findOne(id: number): Promise<AccountEntity|Error>
     {
         const model = await this.model()
