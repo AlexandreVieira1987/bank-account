@@ -20,6 +20,16 @@ $ docker-compose up
 Na raiz do projeto
 ```
 
+## Categorização
+
+```bash
+Tarefa que despendeu mais tempo
+[ ] Codificação
+[x] Teste
+[ ] Documentação
+[ ] Estudo
+```
+
 ## Testes
 
 ```bash
@@ -42,3 +52,5 @@ $ docker-compose exec challenge-api npm run test
 ## Links
 
 <a target="blank" href="http://localhost:3000/api">Documentação</a>
+
+<a target="blank" href="http://localhost:3000/api">Trelo</a>
