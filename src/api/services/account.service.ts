@@ -24,7 +24,7 @@ export class AccountService
 
     async findAll(): Promise<AccountEntity[]|Error>
     {
-        const model = await this.model()
+        const model = await this.model
         return await model.find()
     }
 
@@ -103,10 +103,11 @@ export class AccountService
     async create(attributes: CustomerEntity): Promise<AccountEntity|Error>
     {
         const model = await this.model
-        const customer = await this.customer.create(attributes)
 
-        if (customer instanceof Error) {
-            return customer
+        try {
+            await this.customer.create(attributes)
+        } catch (e) {
+            return e.message
         }
 
         const accountAttr = {

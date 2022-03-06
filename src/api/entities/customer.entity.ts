@@ -15,4 +15,11 @@ export class CustomerEntity
     @CreateDateColumn()
     created_at: Date
 
+    constructor(customer: Partial<CustomerEntity>)
+    {
+        this.id = customer?.id
+        this.name = customer?.name,
+        this.cpf = customer?.cpf,
+        this.created_at = customer?.created_at
+    }
 }
