@@ -2,13 +2,16 @@ import {Body, Controller, Get, Param, Post} from '@nestjs/common';
 import {AccountService} from "../services/account.service";
 import {CustomerEntity} from "../entities/customer.entity";
 import {ApiBody, ApiProperty, ApiResponse} from "@nestjs/swagger";
+import {BaseController} from "../utils/BaseController";
 
 @Controller('account')
-export class AccountController
+export class AccountController extends BaseController
 {
     constructor(
         private readonly model: AccountService
-    ) {}
+    ) {
+        super()
+    }
 
     @Post()
     @ApiResponse({
@@ -16,11 +19,7 @@ export class AccountController
     })
     async create(@Body() attributes: CustomerEntity)
     {
-        const model = await this.model.create(attributes);
-        if (model instanceof Error) {
-            return model.message
-        }
-        return model
+        return this.response(await this.model.create(attributes))
     }
 
     @Post(':account_id/credit')
@@ -29,14 +28,10 @@ export class AccountController
     })
     async credit(@Param('account_id') account_id: number, @Body() attributes: {value: number})
     {
-        const model = await this.model.toCredit({
+        return this.response(await this.model.toCredit({
             value: attributes.value,
             id: account_id
-        })
-        if (model instanceof Error) {
-            return model.message
-        }
-        return model
+        }))
     }
 
     @Post(':account_id/debit')
@@ -45,15 +40,10 @@ export class AccountController
     })
     async debit(@Param('account_id') account_id: number, @Body() attributes: {value: number})
     {
-        const model = await this.model.toDebit({
+        return this.response(await this.model.toDebit({
             value: attributes.value,
             id: account_id
-        })
-
-        if (model instanceof Error) {
-            return model.message
-        }
-        return model
+        }))
     }
 
     @Get(':account_id/balance')
@@ -62,10 +52,6 @@ export class AccountController
     })
     async balance(@Param('account_id') account_id: number)
     {
-        const model = await this.model.balance(account_id)
-        if (model instanceof Error) {
-            return model.message
-        }
-        return model
+        return this.response(await this.model.balance(account_id))
     }
 }
